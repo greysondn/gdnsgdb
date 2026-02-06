@@ -63,7 +63,7 @@ class GDNSGDB:
         Config for this instance
         """
     
-        self.palettes:dict[str, dict[int, GDNSGDBColor]]
+        self.palettes:dict[str, dict[int, GDNSGDBColor]]= {}
         """Palette cache.
         """
     def load_yaml(self, yaml:str) -> None:
@@ -78,13 +78,13 @@ class GDNSGDB:
         self.conf = loader.load(yaml)
         
         # load the palettes in
-        for flat_color, palette_entries in self.conf["colors"]:
+        for flat_color, palette_entries in self.conf["colors"].items():
             # we can get our key for storage and start a value dict
             swp_k:str = flat_color
             swp_v:dict[int, GDNSGDBColor] = {}
             
             # and then the other part
-            for index, palette_color in palette_entries:
+            for index, palette_color in palette_entries.items():
                 swp_v[index] = GDNSGDBColor.from_html(palette_color)
             
             # throw it in our dict
