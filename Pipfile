@@ -17,6 +17,7 @@ isort = "*"
 pytest-isort = "*"
 pylint = "*"
 pytest-timeout = "*"
+yapf = "*"
 
 [requires]
 python_version = "3.12"
