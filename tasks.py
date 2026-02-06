@@ -63,6 +63,7 @@ def dump(ctx: Context, output: str = "code.txt"):
 
 @task
 def format(ctx: Context):
+    # TODO: fix the way this handles type hint colons
     match platform.system():
         case ("Windows"):
             ctx.run("yapf --in-place --recursive src tests tasks.py")
