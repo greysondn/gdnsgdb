@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+"ruamel.yaml" = "*"
+pillow = "*"
+
+[dev-packages]
+tox = "*"
+invoke = "*"
+pytest = "*"
+coverage = {extras = ["toml"], version = "*"}
+pytest-cov = "*"
+isort = "*"
+pytest-isort = "*"
+pylint = "*"
+pytest-timeout = "*"
+
+[requires]
+python_version = "3.12"
