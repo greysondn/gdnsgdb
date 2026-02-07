@@ -130,7 +130,7 @@ class GDNSGDB:
         """
         swp_root:Path = Path(self.conf["meta"]["root_dir"])
         
-        for name, data in self.conf.items():
+        for name, data in self.conf["meta_templates"].items():
             # the name becomes a key later
             swp_k:str = name
             
