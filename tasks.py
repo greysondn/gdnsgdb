@@ -8,7 +8,7 @@ import re
 
 
 @task
-def build(ctx: Context):
+def build(ctx:Context):
     match platform.system():
         case _:
             print(f"Running on unimplemented platform: {platform.system()}")
@@ -16,7 +16,7 @@ def build(ctx: Context):
 
 
 @task
-def clean(ctx: Context):
+def clean(ctx:Context):
     match platform.system():
         case _:
             print(f"Running on unimplemented platform: {platform.system()}")
@@ -24,22 +24,22 @@ def clean(ctx: Context):
 
 
 @task
-def dump(ctx: Context, output: str = "code.txt"):
+def dump(ctx:Context, output:str = "code.txt"):
     root = Path(".")
-    target_extensions: list[str] = [
+    target_extensions:list[str] = [
         ".py",
     ]
     
-    exclude_folders: list[str] = [
+    exclude_folders:list[str] = [
         "venv",
     ]
     
-    exclude_files: list[str] = ["config.yaml"]
+    exclude_files:list[str] = ["config.yaml"]
     
     with open(output, "w", encoding="utf-8") as outfile:
         for file_path in root.rglob("*"):
             if (file_path.suffix.lower() in target_extensions):
-                skip_file: bool = False
+                skip_file:bool = False
                 
                 if (not file_path.is_file()):
                     skip_file = True
@@ -62,7 +62,7 @@ def dump(ctx: Context, output: str = "code.txt"):
 
 
 @task
-def format(ctx: Context):
+def format(ctx:Context):
     # TODO: fix the way this handles type hint colons
     match platform.system():
         case ("Windows"):
@@ -73,7 +73,7 @@ def format(ctx: Context):
 
 
 @task
-def test(ctx: Context):
+def test(ctx:Context):
     match platform.system():
         case ("Windows"):
             ctx.run(
@@ -85,7 +85,7 @@ def test(ctx: Context):
 
 
 @task
-def prerelease(ctx: Context):
+def prerelease(ctx:Context):
     match platform.system():
         case _:
             print(f"Running on unimplemented platform: {platform.system()}")
@@ -93,7 +93,7 @@ def prerelease(ctx: Context):
 
 
 @task
-def release(ctx: Context):
+def release(ctx:Context):
     match platform.system():
         case _:
             print(f"Running on unimplemented platform: {platform.system()}")
