@@ -71,10 +71,12 @@ def format(ctx:Context):
             
             # but now I've got to fix the bloody colon space nonsense in type
             # hints that apparently pep-8 requires
+            
+            # note it doesn't touch this file because it will butcher it.
             ps_replace_command = (
-                r'Get-ChildItem -Path src, tests, tasks.py -Recurse -Filter *.py | '
+                r'Get-ChildItem -Path src, tests -Recurse -Filter *.py | '
                 r'ForEach-Object { '
-                r"(Get-Content $_.FullName) -replace ':', ':' | Set-Content $_.FullName "
+                r"(Get-Content $_.FullName) -replace ': ', ':' | Set-Content $_.FullName "
                 r'}'
             )
             
