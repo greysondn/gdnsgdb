@@ -16,13 +16,13 @@ class GDNSGDBColor:
     def __init__(self, red:int = 0, green:int = 0, blue:int = 0):
         """Init.
         <br><br>
-        WARNING: This does not validate its inputs. You will see errors down
+        WARNING:This does not validate its inputs. You will see errors down
         the line somewhere if you screw up.
         
         Args:
-            red: channel value 0-255. Defaults to 0.
-            green: channel value 0-255. Defaults to 0.
-            blue: channel value 0-255. Defaults to 0.
+            red:channel value 0-255. Defaults to 0.
+            green:channel value 0-255. Defaults to 0.
+            blue:channel value 0-255. Defaults to 0.
         """
         self.red:int = red
         self.green:int = green
@@ -47,7 +47,7 @@ class GDNSGDBColor:
     
     @classmethod
     def from_tuple(cls, pil_color:tuple[int, ...]) -> "GDNSGDBColor":
-        ret: GDNSGDBColor = GDNSGDBColor()
+        ret:GDNSGDBColor = GDNSGDBColor()
         
         # this one should be straightforward
         ret.red = pil_color[0]
@@ -74,7 +74,7 @@ class GDNSGDBMetaTemplate:
         logo_align_horizontal:str = "center",
         logo_align_vertical:str = "center"
     ):
-        self.image:Image.Image = Image.open(path)
+        self.image:Image.Image = Image.open(path).convert("RGBA")
         
         self.color_map:dict[tuple[int, int, int], int] = {}
         for k, v in color_map.items():
@@ -175,12 +175,18 @@ class GDNSGDB:
             # assign
             self.meta_templates[swp_k] = swp_v
     
+    def _load_platform_templates(self) -> None:
+        """
+        Internal helper solely responsible for loading and caching platform
+        templates initially.
+        """
+    
     def load_yaml(self, yaml:str) -> None:
         """
         decodes given yaml src data into self.conf and sets related fields.
 
         Args:
-            yaml: a yaml src str of some sort
+            yaml:a yaml src str of some sort
         """
         # just the barebones load part
         loader:YAML = YAML(typ="safe")

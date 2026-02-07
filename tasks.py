@@ -11,7 +11,7 @@ import re
 def build(ctx:Context):
     match platform.system():
         case _:
-            print(f"Running on unimplemented platform: {platform.system()}")
+            print(f"Running on unimplemented platform:{platform.system()}")
 
 
 
@@ -19,7 +19,7 @@ def build(ctx:Context):
 def clean(ctx:Context):
     match platform.system():
         case _:
-            print(f"Running on unimplemented platform: {platform.system()}")
+            print(f"Running on unimplemented platform:{platform.system()}")
 
 
 
@@ -63,12 +63,24 @@ def dump(ctx:Context, output:str = "code.txt"):
 
 @task
 def format(ctx:Context):
-    # TODO: fix the way this handles type hint colons
+    # TODO:fix the way this handles type hint colons
     match platform.system():
         case ("Windows"):
+            # yapf is mostly right, after config
             ctx.run("yapf --in-place --recursive src tests tasks.py")
+            
+            # but now I've got to fix the bloody colon space nonsense in type
+            # hints that apparently pep-8 requires
+            ps_replace_command = (
+                r'Get-ChildItem -Path src, tests, tasks.py -Recurse -Filter *.py | '
+                r'ForEach-Object { '
+                r"(Get-Content $_.FullName) -replace ':', ':' | Set-Content $_.FullName "
+                r'}'
+            )
+            
+            ctx.run(f'powershell -Command "{ps_replace_command}"')
         case _:
-            print(f"Running on unimplemented platform: {platform.system()}")
+            print(f"Running on unimplemented platform:{platform.system()}")
 
 
 
@@ -80,7 +92,7 @@ def test(ctx:Context):
                 "pytest --showlocals -s --timeout=10 --timeout-method=thread"
             )
         case _:
-            print(f"Running on unimplemented platform: {platform.system()}")
+            print(f"Running on unimplemented platform:{platform.system()}")
 
 
 
@@ -88,7 +100,7 @@ def test(ctx:Context):
 def prerelease(ctx:Context):
     match platform.system():
         case _:
-            print(f"Running on unimplemented platform: {platform.system()}")
+            print(f"Running on unimplemented platform:{platform.system()}")
 
 
 
@@ -96,4 +108,4 @@ def prerelease(ctx:Context):
 def release(ctx:Context):
     match platform.system():
         case _:
-            print(f"Running on unimplemented platform: {platform.system()}")
+            print(f"Running on unimplemented platform:{platform.system()}")
